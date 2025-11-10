@@ -24,9 +24,11 @@ Implement a middleware layer (the `NoodleMachineController`) that connects the `
    - **Vegetable mass (g)**
 
 5. Send the command to the machine in the format:
+   ```
    "<noodleMass>g <water>ml <broth>ml <vegetableMass>g"
+   ```
 
-6. Each region-specific factory must return versions of noodle dishes with **region-dependent ingredient values**  
+7. Each region-specific factory must return versions of noodle dishes with **region-dependent ingredient values**  
    (e.g. Japan = rich broth ramen, Italy = less broth, more noodles, etc.).
 
 ---
