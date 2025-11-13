@@ -24,14 +24,6 @@ public class NoodleRecipe {
         return noodleGrams + "g " + waterMl + "ml " + brothMl + "ml " + vegetableGrams + "g";
     }
 
-    @Override
-    public NoodleRecipe clone() {
-        try {
-            return (NoodleRecipe) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError(e);
-        }
-    }
 
     public static class Builder {
         private int noodleGrams;
