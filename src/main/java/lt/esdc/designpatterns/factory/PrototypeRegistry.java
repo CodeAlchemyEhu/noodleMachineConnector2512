@@ -14,14 +14,20 @@ public final class PrototypeRegistry {
 
     private PrototypeRegistry() {
         Map<DishType, NoodleRecipe> italy = new EnumMap<>(DishType.class);
-        italy.put(DishType.RAMEN, new NoodleRecipe.Builder().noodle(100).water(250).broth(150).vegetables(40).build());
-        italy.put(DishType.SPAGHETTI, new NoodleRecipe.Builder().noodle(150).water(100).broth(50).vegetables(30).build());
-        italy.put(DishType.CHOWMEIN, new NoodleRecipe.Builder().noodle(120).water(150).broth(40).vegetables(30).build());
+        italy.put(DishType.RAMEN, new NoodleRecipe.Builder()
+                .noodle(100).water(250).broth(150).vegetables(40).build());
+        italy.put(DishType.SPAGHETTI, new NoodleRecipe.Builder()
+                .noodle(150).water(100).broth(50).vegetables(30).build());
+        italy.put(DishType.CHOWMEIN, new NoodleRecipe.Builder()
+                .noodle(120).water(150).broth(40).vegetables(30).build());
 
         Map<DishType, NoodleRecipe> india = new EnumMap<>(DishType.class);
-        india.put(DishType.RAMEN, new NoodleRecipe.Builder().noodle(120).water(300).broth(150).vegetables(70).build());
-        india.put(DishType.SPAGHETTI, new NoodleRecipe.Builder().noodle(140).water(120).broth(60).vegetables(60).build());
-        india.put(DishType.CHOWMEIN, new NoodleRecipe.Builder().noodle(130).water(100).broth(70).vegetables(80).build());
+        india.put(DishType.RAMEN, new NoodleRecipe.Builder()
+                .noodle(120).water(300).broth(150).vegetables(70).build());
+        india.put(DishType.SPAGHETTI, new NoodleRecipe.Builder()
+                .noodle(140).water(120).broth(60).vegetables(60).build());
+        india.put(DishType.CHOWMEIN, new NoodleRecipe.Builder()
+                .noodle(130).water(100).broth(70).vegetables(80).build());
 
         registry.put(Region.ITALY, italy);
         registry.put(Region.INDIA, india);
@@ -32,6 +38,16 @@ public final class PrototypeRegistry {
     }
 
     public NoodleRecipe prototypeOf(Region region, DishType dish) {
-        return registry.get(region).get(dish).clone();
+        Map<DishType, NoodleRecipe> byRegion = registry.get(region);
+        if (byRegion == null) {
+            throw new IllegalArgumentException("Unknown region: " + region);
+        }
+
+        NoodleRecipe proto = byRegion.get(dish);
+        if (proto == null) {
+            throw new IllegalArgumentException("Unknown dish: " + dish);
+        }
+
+        return new NoodleRecipe(proto);
     }
 }
