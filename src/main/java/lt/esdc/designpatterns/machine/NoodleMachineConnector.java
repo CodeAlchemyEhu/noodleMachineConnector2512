@@ -25,7 +25,7 @@ public class NoodleMachineConnector implements NoodleMachineV17 {
             );
         }
 
-        logger.info("Preparing noodles: " + order);
+        logger.info("Preparing noodles: {}", order);
         logger.info("Boiling water...");
         logger.info("Cooking noodles...");
         try {

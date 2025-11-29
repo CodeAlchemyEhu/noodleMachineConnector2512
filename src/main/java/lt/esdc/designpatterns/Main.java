@@ -1,17 +1,15 @@
 package lt.esdc.designpatterns;
 
 import lt.esdc.designpatterns.controller.NoodleMachineController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lt.esdc.designpatterns.controller.NoodleMachineControllerImpl;
+import lt.esdc.designpatterns.machine.NoodleMachineConnector;
 
 public class Main {
-    private static final Logger  logger = LoggerFactory.getLogger(Main.class);
-
     public static void main(String[] args) {
-        NoodleMachineController controller = null;
+        NoodleMachineController controller =
+                new NoodleMachineControllerImpl(new NoodleMachineConnector());
 
-        String[] order = {"ramen", "spaghetti", "chowmein"};
+        String[] order = {"italy", "ramen", "spaghetti", "chowmein"};
         controller.processOrder(order);
-
     }
 }

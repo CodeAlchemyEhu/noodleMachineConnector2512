@@ -1,0 +1,13 @@
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\controller\NoodleMachineController.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\controller\NoodleMachineControllerImpl.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\domain\DishType.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\domain\NoodleRecipe.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\domain\Region.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\factory\IndiaFactory.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\factory\ItalyFactory.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\factory\PrototypeRegistry.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\factory\RegionalFactory.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\factory\RegionalFactoryProvider.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\machine\NoodleMachineConnector.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\machine\NoodleMachineV17.java
+C:\Users\Andrei\IdeaProjects\noodleMachineConnector2512\src\main\java\lt\esdc\designpatterns\Main.java
