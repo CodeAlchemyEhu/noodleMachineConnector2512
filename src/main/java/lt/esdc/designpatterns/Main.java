@@ -9,7 +9,7 @@ public class Main {
         NoodleMachineController controller =
                 new NoodleMachineControllerImpl(new NoodleMachineConnector());
 
-        String[] order = {"italy", "ramen", "spaghetti", "chowmein"};
+        String[] order = {"italy", "ramen sesame tofu", "spaghetti", "chowmein chili"};
         controller.processOrder(order);
     }
 }
