@@ -73,7 +73,7 @@ Typical lifecycle:
 ```
 1. getToken()
 2. openSession(token)
-3. makeCoffee(token, session, "120g 400ml 250ml 50g chili")
+3. makeNoodle(token, session, "120g 400ml 250ml 50g chili")
 4. closeSession(token, session)
 ```
 The connector supports the following operations:
