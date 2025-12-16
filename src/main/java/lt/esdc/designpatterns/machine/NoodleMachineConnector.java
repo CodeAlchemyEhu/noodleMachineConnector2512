@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public class NoodleMachineConnector implements NoodleMachineV17 {
 
-    // Regex for pattern: "<number>g <number>ml <number>ml <number>g"
-    private static final String PATTERN = "^\\d+g \\d+ml \\d+ml \\d+g$";
+    private static final String PATTERN = "(?i)^\\d+g \\d+ml \\d+ml \\d+g(?: [a-z]+)*$";
 
     private static final Logger logger = LoggerFactory.getLogger(NoodleMachineConnector.class);
 
@@ -20,7 +19,7 @@ public class NoodleMachineConnector implements NoodleMachineV17 {
         if (!order.matches(PATTERN)) {
             throw new IllegalArgumentException(
                     "Invalid order format: " + order +
-                            ". Expected format: <noodleMass>g <water>ml <broth>ml <vegetables>g " +
+                            ". Expected format: <noodleMass>g <water>ml <broth>ml <vegetables>g [toppings...]" +
                             "(e.g. '120g 400ml 250ml 50g')."
             );
         }
