@@ -1,4 +1,20 @@
 package lt.esdc.designpatterns.machine;
 
-public class NoodleMachineV55Adapter {
+public final class NoodleMachineV55Adapter implements NoodleMachineV17 {
+    private final NoodleMachineV55 machine;
+
+    public NoodleMachineV55Adapter(NoodleMachineV55 machine) {
+        this.machine = machine;
+    }
+
+    @Override
+    public void send(String order) {
+        String token = machine.getToken();
+        String session = machine.openSession(token);
+        try {
+            machine.makeNoodle(token, session, order);
+        } finally {
+            machine.closeSession(token, session);
+        }
+    }
 }

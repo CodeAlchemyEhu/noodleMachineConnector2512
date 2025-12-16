@@ -1,6 +1,6 @@
 package lt.esdc.designpatterns.domain;
 
-public enum Toppings {
+public enum Topping {
     SESAME, TOFU, CHILI;
 
     public static Topping from(String s) {
