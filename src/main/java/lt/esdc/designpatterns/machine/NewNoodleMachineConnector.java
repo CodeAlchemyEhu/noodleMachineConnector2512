@@ -1,25 +1,41 @@
 package lt.esdc.designpatterns.machine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 import java.util.UUID;
 
 public class NewNoodleMachineConnector implements NoodleMachineV55 {
+
+    private static final Logger log = LoggerFactory.getLogger(NewNoodleMachineConnector.class);
+
     private static final String ORDER_PATTERN =
-            "(?i)^\\d+g \\d+ml \\d+ml \\d+g(?: [a-z]+)*$";
+            "(?i)^\\d++g \\d++ml \\d++ml \\d++g(?: [a-z]++)*+$";
+
+    private final Sleeper sleeper;
+    private final long tokenDelayMs;
+    private final long noodleDelayMs;
 
     private String currentToken;
     private String currentSession;
 
+    public NewNoodleMachineConnector() {
+        this(new ThreadSleeper(), 5000L, 2000L);
+    }
+
+    public NewNoodleMachineConnector(Sleeper sleeper, long tokenDelayMs, long noodleDelayMs) {
+        this.sleeper = Objects.requireNonNull(sleeper, "sleeper");
+        this.tokenDelayMs = tokenDelayMs;
+        this.noodleDelayMs = noodleDelayMs;
+    }
+
     @Override
     public String getToken() {
-        System.out.println("Retrieving token...");
+        log.info("Retrieving token...");
 
         currentToken = UUID.randomUUID().toString().replace("-", "");
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException("Unexpected interruption during coffee preparation", e);
-        }
+        sleep(tokenDelayMs);
 
         return currentToken;
     }
@@ -28,27 +44,21 @@ public class NewNoodleMachineConnector implements NoodleMachineV55 {
     public String openSession(String token) {
         validateToken(token);
 
-        System.out.println("Opening session...");
+        log.info("Opening session...");
 
         currentSession = UUID.randomUUID().toString().replace("-", "");
         return currentSession;
     }
 
     @Override
-    public void makeNoodle(String token, String session, String coffee) {
+    public void makeNoodle(String token, String session, String noodle) {
         validateToken(token);
         validateSession(session);
-        validateOrder(coffee);
+        validateOrder(noodle);
 
-        System.out.println("Preparing noodle... " + coffee);
-        System.out.println("..........");
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException("Unexpected interruption during noodle preparation", e);
-        }
-        System.out.println("Ready");
+        log.info("Preparing noodle... {}", noodle);
+        sleep(noodleDelayMs);
+        log.info("Ready");
     }
 
     @Override
@@ -56,7 +66,7 @@ public class NewNoodleMachineConnector implements NoodleMachineV55 {
         validateToken(token);
         validateSession(session);
 
-        System.out.println("Closing session...");
+        log.info("Closing session...");
         currentSession = null;
     }
 
@@ -83,8 +93,28 @@ public class NewNoodleMachineConnector implements NoodleMachineV55 {
         if (!orderString.matches(ORDER_PATTERN)) {
             throw new IllegalArgumentException(
                     "Invalid order format: '" + orderString +
-                            "'. Expected format: Expected format: <noodleMass>g <water>ml <broth>ml <vegetables>g [toppings...]"
+                            "'. Expected format: <noodleMass>g <water>ml <broth>ml <vegetables>g [toppings...]"
             );
+        }
+    }
+
+    private void sleep(long ms) {
+        try {
+            sleeper.sleep(ms);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted during connector operation", e);
+        }
+    }
+
+    public interface Sleeper {
+        void sleep(long ms) throws InterruptedException;
+    }
+
+    private static final class ThreadSleeper implements Sleeper {
+        @Override
+        public void sleep(long ms) throws InterruptedException {
+            Thread.sleep(ms);
         }
     }
 }
