@@ -18,9 +18,8 @@ public final class NoodleOrderFacade {
     }
 
     public static NoodleOrderFacade withMachine(NoodleMachineV17 machine) {
-        return new NoodleOrderFacade(
-                new NoodleMachineControllerImpl(machine)
-        );
+        Objects.requireNonNull(machine, "machine");
+        return new NoodleOrderFacade(new NoodleMachineControllerImpl(machine));
     }
 
     public static NoodleOrderFacade withLegacyMachine() {
@@ -28,9 +27,7 @@ public final class NoodleOrderFacade {
     }
 
     public static NoodleOrderFacade withNewMachine() {
-        return withMachine(
-                new NoodleMachineV55Adapter(new NewNoodleMachineConnector())
-        );
+        return withMachine(new NoodleMachineV55Adapter(new NewNoodleMachineConnector()));
     }
 
     public void order(String... items) {

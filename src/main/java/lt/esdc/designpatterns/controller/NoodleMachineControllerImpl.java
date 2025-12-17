@@ -10,7 +10,6 @@ import lt.esdc.designpatterns.factory.RegionalFactoryProvider;
 import lt.esdc.designpatterns.machine.NoodleMachineV17;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
