@@ -2,10 +2,7 @@ package lt.esdc.designpatterns.facade;
 
 import lt.esdc.designpatterns.controller.NoodleMachineController;
 import lt.esdc.designpatterns.controller.NoodleMachineControllerImpl;
-import lt.esdc.designpatterns.machine.NoodleMachineConnector;
-import lt.esdc.designpatterns.machine.NoodleMachineV17;
-import lt.esdc.designpatterns.machine.NoodleMachineV55Adapter;
-import lt.esdc.designpatterns.machine.NewNoodleMachineConnector;
+import lt.esdc.designpatterns.machine.*;
 
 import java.util.Objects;
 
@@ -27,7 +24,11 @@ public final class NoodleOrderFacade {
     }
 
     public static NoodleOrderFacade withNewMachine() {
-        return withMachine(new NoodleMachineV55Adapter(new NewNoodleMachineConnector()));
+        return withMachine(
+                new NoodleMachineV55Adapter(
+                        new TokenCachingProxy(new NewNoodleMachineConnector())
+                )
+        );
     }
 
     public void order(String... items) {
