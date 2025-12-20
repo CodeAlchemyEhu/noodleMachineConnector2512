@@ -6,6 +6,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NoodleOrderFacadeTest {
+    @Test
+    void should_create_facade_with_legacy_machine() {
+        assertNotNull(NoodleOrderFacade.withLegacyMachine());
+    }
+
+    @Test
+    void should_create_facade_with_new_machine() {
+        assertNotNull(NoodleOrderFacade.withNewMachine());
+    }
 
     @Test
     void should_send_prepared_command_to_machine() {
