@@ -41,3 +41,53 @@ Implement a middleware layer (the `NoodleMachineController`) that connects the `
 | **India** 🇮🇳   | 120g / 300ml / 150ml / 70g | 140g / 120ml / 60ml / 60g | 130g / 100ml / 70ml / 80g | Spicy & colorful |
 
 ---
+
+## 📝 New task for structural design patterns
+
+### ✔ 1. Add Toppings Support
+Extend the coffee order logic so a user can request toppings, for example:
+```
+ramen sesame tofu
+```
+The list of toppings:
+- **Sesame**
+- **Tofu**
+- **Chili**
+
+Toppings can be combined
+
+### ✔ 2. Maintain Backward Compatibility
+
+Old connector: must still work exactly as before and support topping functionality
+
+New connector: must fully support toppings
+
+Your implementation must ensure the system can work with either connector without breaking existing functionality.
+
+### ✔ 3. ☕ NewNoodleMachineConnector – Overview
+
+`NewNoodleMachineConnector` is a connector class that simulates communication with a noodle machine device.
+It implements the `NoodleMachineV55` interface and provides a controlled workflow for interacting with the machine.
+
+Typical lifecycle:
+```
+1. getToken()
+2. openSession(token)
+3. makeNoodle(token, session, "120g 400ml 250ml 50g chili")
+4. closeSession(token, session)
+```
+The connector supports the following operations:
+
+**Requesting a token** – retrieves a unique authentication token for connector.
+
+**Opening a session** – establishes a session using the provided token.
+
+**Preparing noodle** – performs a simulated noodle preparation within an active session.
+
+**Closing the session** – gracefully ends the active session.
+
+Additionally, the connector implements strict validation rules to ensure proper usage:
+
+Only one session can be open at any time
+
+This behavior mimics real-world external device integrations where authentication, session control, and state validation are required.
