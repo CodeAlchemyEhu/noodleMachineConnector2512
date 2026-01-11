@@ -91,3 +91,123 @@ Additionally, the connector implements strict validation rules to ensure proper 
 Only one session can be open at any time
 
 This behavior mimics real-world external device integrations where authentication, session control, and state validation are required.
+
+---
+
+## 📝 New task for behavioral design patterns p.1
+
+
+### 🧠 Task – Order Price Calculation
+Extend the noodle ordering system to **calculate the final order price** dynamically, depending on:
+
+- noodle type
+- region
+- applied discount rules
+
+Use **stratagy** pattern
+
+
+#### ✔ Description
+
+Each noodle order must be able to calculate its **base price** and then apply **one discount strategy**.
+
+
+#### ✔ Regional Noodle Price Table
+
+#### ☕ Base Noodle Prices (USD)
+
+| Region         | Ramen | Spaghetti | Chow Mein |
+|----------------|-------|-----------|-----------|
+| **Italy** 🇮🇹    | $3.00 | $4.50     | $5.00     |
+| **India** 🇮🇳   | $2.80 | $2.20     | $3.80     |
+
+
+#### 🍯 Topping Prices (USD)
+
+| Topping | Price |
+|---------|-------|
+| Sesame  | $0.50 |
+| Tofu    | $0.90 |
+| Chili   | $0.65 |
+
+- Toppings can be combined
+- Each topping adds its price to the base noodle price
+
+#### ✔ Discount Strategies
+
+Only **one discount** may be applied per order.
+
+| Discount Type       | Rule |
+|---------------------|------|
+| **None**            | No discount |
+| **Student** 🎓      | 20% off total price |
+| **Loyalty Card** 💳 | 10% off total price |
+
+
+
+#### ✔ Example Usage
+
+```
+student ramen sesame tofu
+
+none spaghetti
+```
+
+### 🧠 Task – Order Processing Pipeline
+
+#### 🎯 Goal
+Refactor the order processing logic into a **step-by-step processing pipeline** where each step is responsible for **exactly one concern**.
+
+Use **Chain of Responsibility** pattern
+
+#### ✔ Description
+
+Processing a noodle order involves multiple sequential actions, such as (examples):
+
+- parsing the input string
+- identifying noodle type
+- applying toppings
+- applying discount rules
+
+### 🧠 Task – Noodle Machine Connector States
+
+### 🎯 Goal
+Enhance the `NoodleMachineConnector` to behave differently depending on its **internal state**, simulating a real-world unstable external device.
+
+The connector must automatically switch between states based on **successes and failures** during operation.
+
+Use **state** pattern
+
+
+#### ✔ Description
+
+The Noodle Machine Connector must operate in **three distinct states**:
+
+1. **OPEN**
+2. **CLOSED**
+3. **SEMI-CLOSED**
+
+Each state defines how the connector reacts to incoming noodle preparation requests.
+
+#### ✔ State Definitions & Rules
+
+##### 🟢 OPEN State
+- Normal operating mode
+- All requests are executed normally
+- If **2 exceptions occur processing**:
+   - the connector switches to **CLOSED** state
+
+##### 🔴 CLOSED State
+- Protective mode
+- The connector **ignores the next 5 incoming calls**
+- Ignored calls:
+   - must not reach the real Noodle Machine
+- After 5 ignored calls:
+   - the connector switches to **SEMI-CLOSED** state
+
+##### 🟡 SEMI-CLOSED State
+- Testing mode
+- The connector allows **exactly one request** to pass through
+- If the request:
+   - **succeeds** → switch to **OPEN**
+   - **fails** → switch back to **CLOSED**

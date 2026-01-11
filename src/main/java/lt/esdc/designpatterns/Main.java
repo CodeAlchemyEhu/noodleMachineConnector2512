@@ -5,11 +5,11 @@ import lt.esdc.designpatterns.facade.NoodleOrderFacade;
 public class Main {
     public static void main(String[] args) {
         NoodleOrderFacade facadeNew = NoodleOrderFacade.withNewMachine();
-        facadeNew.order("italy", "ramen sesame tofu");
+        facadeNew.order("italy", "none ramen sesame tofu");
         NoodleOrderFacade facade = NoodleOrderFacade.withLegacyMachine();
         facade.order("italy",
-                "ramen sesame tofu",
-                "spaghetti",
-                "chowmein chili");
+                "student ramen sesame tofu",
+                "none spaghetti",
+                "none chowmein chili");
     }
 }
