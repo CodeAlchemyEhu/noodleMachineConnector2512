@@ -12,6 +12,8 @@ import lt.esdc.designpatterns.pipeline.OrderContext;
 import lt.esdc.designpatterns.pipeline.OrderProcessingChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,4 +70,22 @@ public final class NoodleMachineControllerImpl implements NoodleMachineControlle
             machine.send(cmd);
         }
     }
+
+    private ParsedItem parseItem(String raw) {
+        if (raw == null || raw.isBlank()) {
+            throw new IllegalArgumentException("Dish line cannot be empty");
+        }
+
+        String[] parts = raw.trim().split("\\s+");
+        DishType dish = DishType.from(parts[0]);
+
+        List<Topping> toppings = new ArrayList<>();
+        for (int i = 1; i < parts.length; i++) {
+            toppings.add(Topping.from(parts[i]));
+        }
+
+        return new ParsedItem(dish, toppings);
+    }
+
+    private record ParsedItem(DishType dish, List<Topping> toppings) {}
 }
