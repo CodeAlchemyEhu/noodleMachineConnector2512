@@ -1,7 +1,5 @@
 package lt.esdc.designpatterns.machine.state;
 
-import lt.esdc.designpatterns.machine.state.IgnoredCallException;
-
 import java.util.concurrent.Callable;
 
 public final class ClosedState implements ConnectorState {
